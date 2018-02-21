@@ -1,16 +1,27 @@
 class UsersController < ApplicationController
-	before_action :set_user, only: [:show, :update, :destroy]
 	def index
 		@users = User.all
 	end
 
-	def new
-		@users = User.new
-	end
-
 	def create
-		User.create(user_params)
-		redirect_to('/users')
+	    @user = User.new(user_params)
+	    @user.cash_balance = 50000
+
+	    if @user.save
+	    	# Create 3 new accounts here
+	    	user_id = @user.id
+	    	@first_account = Account.new({user_id: user_id, name: 'Bitcoin', amount: ''})
+	    	@second_account = Account.new({user_id: user_id, name: 'Bitcoin', amount: ''})
+	    	@third_account = Account.new({user_id: user_id, name: 'Bitcoin', amount: ''})
+
+	    	if @first_account.save and @second_account.save and @third_account.save
+		      	render :show, status: :created, location: @user
+		    else
+		    	render json: @first_account.errors, status: :unprocessable_entity
+		    end
+	    else
+	      	render json: @user.errors, status: :unprocessable_entity
+	    end
 	end
 
 	def show
@@ -19,10 +30,7 @@ class UsersController < ApplicationController
 
 
 	private
-	def set_user
-		@user = User.find(params[:id])
-	end
 	def user_params
-		params.require(:user).permit(:name, :cash_balance)
+		params.require(:user).permit(:name)
 	end
 end

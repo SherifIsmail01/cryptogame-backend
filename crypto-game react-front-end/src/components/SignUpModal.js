@@ -9,11 +9,12 @@ class SignUpModal extends Component {
 
 	newUser(e) {
 		e.preventDefault();
-		let newUser = {
-			body: this.refs.value
-		}
-		fetch(`${process.env.REACT_APP_BACKEND_URL}/users/new.json`, {
-			method: "POST"
+
+		fetch(`${process.env.REACT_APP_BACKEND_URL}/users`, {
+			method: "POST",
+			body: JSON.stringify({ 
+				name: this.refs.signup.value
+			})
 			}).then((res) => {
 				return res.json()
 			}).then((user) => {
@@ -30,9 +31,6 @@ class SignUpModal extends Component {
 	            <div className="modal-content">
 	              <div className="modal-header">
 	                <h5 className="modal-title" id="SignUpModalLabel">Sign Up</h5>
-	                <button type="button" className="submit" onClick={ this.newUser }>
-	                  <span aria-hidden="true">&times;</span>
-	                </button>
 	              </div>
 	              <div className="modal-body">
 	               		<form onSubmit= {this.newUser } >
@@ -41,7 +39,7 @@ class SignUpModal extends Component {
 				        </form>
 	              </div>
 	              <div className="modal-footer">
-	                <button type="button" className="btn btn-secondary" onClick={ this.props.close }>Close</button>
+	                <button type="button" className="btn btn-lg btn-block" onClick={ this.props.close }>Close</button>
 	              </div>
 	            </div>
 	          </div>

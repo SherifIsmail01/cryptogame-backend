@@ -38,7 +38,6 @@ class Users extends Component {
 				return res.json()
 			}).then((users) => {
 				console.log(users)
-				// users = JSON.stringify(users)
 				this.setState({users: users})
 		});
 	}
@@ -48,10 +47,12 @@ class Users extends Component {
 				<h1>Welcome to Crypto Game</h1>
 		          <div className="row">
 		            <div className="col-12 text-right">
-		              <button onClick={ this.showSignUpModal } ref="signup" className="btn btn-secondary btn-sm about-button">Sign Up</button>
+		              <button onClick={ this.showSignUpModal } ref="signup" className="btn btn-lg btn-default btn-block signup-button">Sign Up</button>
 		            </div>
 		          </div>
-		          { this.state.showSignUpModal ? <SignUpModal close={ this.closeSignUpModal }/> : null }
+		          { this.state.showSignUpModal ? <SignUpModal banana={ this.addUser } close={ this.closeSignUpModal }/> : null }
+		          <br>
+		          </br>
 				<div>
 					{this.state.users.map((user) => {
 						return <li>Name: {user.name}, Balance: ${user.cash_balance} </li>
