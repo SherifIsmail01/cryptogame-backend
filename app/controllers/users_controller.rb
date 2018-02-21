@@ -28,6 +28,18 @@ class UsersController < ApplicationController
 		@user = User.find_by_id(params[:id])		
 	end
 
+	  def update
+	  	user_id = @user.id
+	    if @user_id.update(user_id_params)
+	      render :show, status: :ok, location: @user_id
+	    else
+	      render json: @user_id.errors, status: :unprocessable_entity
+	    end
+	  end
+
+	  def destroy
+	  	@user.destroy
+	  end
 
 	private
 	def user_params
