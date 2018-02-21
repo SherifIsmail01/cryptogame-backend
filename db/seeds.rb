@@ -5,3 +5,37 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+User.destroy_all
+Account.destroy_all
+
+User.create([
+	{
+		name: "John",
+		cash_balance: 50000
+	},
+	{
+		name: "Erick",
+		cash_balance: 50000
+	},
+	{
+		name: "David",
+		cash_balance: 50000
+	}
+	])
+
+
+
+Account.create([
+	{
+		currency_name: "Bitcoin",
+		units_of_currency: 0
+	},
+	{
+		currency_name: "Litecoin",
+		units_of_currency: 0
+	},
+	{
+		currency_name: "Etherium",
+		units_of_currency: 0
+	}
+	])	
