@@ -1,18 +1,25 @@
 class UsersController < ApplicationController
+
 	def index
+		puts "!!!! index"
 		@users = User.all
 	end
 
 	def create
+		puts 'params'
+		puts params
+		puts 'user_params'
+		puts user_params 
+		
 	    @user = User.new(user_params)
 	    @user.cash_balance = 50000
-
+	    puts "!!!!! create"
+	    p @user
 	    if @user.save
-	    	# Create 3 new accounts here
 	    	user_id = @user.id
-	    	@first_account = Account.new({user_id: user_id, name: 'Bitcoin', amount: ''})
-	    	@second_account = Account.new({user_id: user_id, name: 'Bitcoin', amount: ''})
-	    	@third_account = Account.new({user_id: user_id, name: 'Bitcoin', amount: ''})
+	    	@first_account = Account.new({user_id: user_id, currency_name: 'Bitcoin', units_of_currency: 0})
+	    	@second_account = Account.new({user_id: user_id, currency_name: 'Litecoin', units_of_currency: 0})
+	    	@third_account = Account.new({user_id: user_id, currency_name: 'Etherium', units_of_currency: 0})
 
 	    	if @first_account.save and @second_account.save and @third_account.save
 		      	render :show, status: :created, location: @user
@@ -43,6 +50,6 @@ class UsersController < ApplicationController
 
 	private
 	def user_params
-		params.require(:user).permit(:name)
+		params.permit(:name)
 	end
 end
