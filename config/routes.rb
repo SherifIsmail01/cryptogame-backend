@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
     get '/users' => 'users#index', as: 'users'
     post '/users' => 'users#create', as: 'create_user'
 
@@ -13,6 +12,5 @@ Rails.application.routes.draw do
 
     put '/users/:id/accounts/buy' => 'accounts#buy', as: 'update_account_buy'
     put '/users/:id/accounts/sell' => 'accounts#sell', as: 'update_account_sell'
-    put '/users/:id/accounts/convert' => 'accounts#convert', as: 'update_account_convert'
-    
+    put '/users/:id/accounts/convert' => 'accounts#convert', as: 'update_account_convert' 
 end
