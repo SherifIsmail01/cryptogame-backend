@@ -12,53 +12,19 @@ User.create([
 		name: "John",
 		cash_balance: 50000,
 		email: "john@example.com",
-		accounts: [{
-			currency_name: "Bitcoin",
-			units_of_currency: 0
-			},
-			{
-			currency_name: "Litecoin",
-			units_of_currency: 0,
-
-			},
-			{
-			currency_name: "Etherium",
-			units_of_currency: 0
-		}]
+		password: "12345678"
 	},
 	{
 		name: "Ericka",
 		cash_balance: 50000,
 		email: "ericka@example.com",
-		accounts: [{
-			currency_name: "Bitcoin",
-			units_of_currency: 0
-			},
-			{
-			currency_name: "Litecoin",
-			units_of_currency: 0
-			},
-			{
-			currency_name: "Etherium",
-			units_of_currency: 0
-		}]
+		password: "12345678"
 	},
 	{
 		name: "Mona",
 		cash_balance: 50000,
 		email: "mona@example.com",
-		accounts: [{
-			currency_name: "Bitcoin",
-			units_of_currency: 0
-			},
-			{
-			currency_name: "Litecoin",
-			units_of_currency: 0
-			},
-			{
-			currency_name: "Etherium",
-			units_of_currency: 0
-		}]
+		password: "12345678"
 	}
 	])
 

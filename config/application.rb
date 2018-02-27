@@ -27,11 +27,5 @@ module CryptoGame
 
     # Don't generate system test files.
     config.generators.system_tests = nil
-    config.middleware.insert_before 0, Rack::Cors do
-		allow do
-			origins 'REACT_APP_BACKEND_URL'
-			resource '*', :headers => :any, :methods => [:get, :post, :put, :options]
-		end
-	end	
   end
 end
