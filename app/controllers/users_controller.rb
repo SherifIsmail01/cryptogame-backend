@@ -6,21 +6,19 @@ class UsersController < ApplicationController
 	end
 
 	def create
-		puts 'params'
-		puts params
-		puts 'user_params'
-		puts user_params 
-		
 	    @user = User.new(user_params)
+	    puts params
 	    @user.cash_balance = 50000
-	    puts "!!!!! create"
-	    p @user
+	    puts @user.cash_balance
 	    if @user.save
 	    	user_id = @user.id
+	    	puts user_id
 	    	@first_account = Account.new({user_id: user_id, currency_name: 'Bitcoin', units_of_currency: 0})
 	    	@second_account = Account.new({user_id: user_id, currency_name: 'Litecoin', units_of_currency: 0})
 	    	@third_account = Account.new({user_id: user_id, currency_name: 'Etherium', units_of_currency: 0})
-
+	    	puts @first_account
+	    	puts @second_account
+	    	puts @third_account
 	    	if @first_account.save and @second_account.save and @third_account.save
 		      	render :show, status: :created, location: @user
 		    else
@@ -50,6 +48,6 @@ class UsersController < ApplicationController
 
 	private
 	def user_params
-		params.permit(:name)
+		params.permit(:name, :email, :password)
 	end
 end
