@@ -12,8 +12,4 @@ Rails.application.routes.draw do
     put '/users/:id/accounts/sell' => 'accounts#sell', as: 'update_account_sell'
     put '/users/:id/accounts/convert' => 'accounts#convert', as: 'update_account_convert'
     delete '/account/:id' => 'accounts#destroy', as: 'delete_account'
-
-    post '/login' => 'sessions#new', as: 'login'
-    post '/sessions' => 'sessions#create'
-    get '/logout' => 'sessions#destroy', as: 'logout'
 end

@@ -1,7 +1,5 @@
 class AccountsController < ApplicationController
 
-	before_action :authorize, except: [:index, :show]
-
 	def index
 		# if current_user.id != @accounts.user_id
 			@accounts = Account.all
@@ -31,9 +29,6 @@ class AccountsController < ApplicationController
 	end
 
 	def buy
-		if current_user.id != @accounts.user_id
-			flash[:notice] = "request denied"
-		else
 			user_id = params[:id]
 			user = User.find_by_id(user_id)
 			@accounts = user.accounts
@@ -59,13 +54,9 @@ class AccountsController < ApplicationController
 				flash[:notice] = "Insufficient funds"
 				render :index
 			end
-		end
 	end
 
 	def convert
-		if current_user.id != @accounts.user_id
-			flash[:notice] = "request denied"
-		else
 			user_id = params[:id]
 			user = User.find_by_id(user_id)
 			@accounts = user.accounts
@@ -109,13 +100,9 @@ class AccountsController < ApplicationController
 				flash[:notice] = "Insufficient amount, please increase number of units or change currency"
 				render :index	
 			end
-		end
 	end
 
 	def sell
-		if current_user.id != @accounts.user_id
-			flash[:notice] = "request denied"
-		else
 			user_id = params[:id]
 			user = User.find_by_id(user_id)
 			@accounts = user.accounts
@@ -139,7 +126,6 @@ class AccountsController < ApplicationController
 			else
 				flash[:notice] = "Incorrect number of units"
 			end
-		end
 	end
 
 	def destroy
