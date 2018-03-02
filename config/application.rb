@@ -33,6 +33,6 @@ module CryptoGame
 	      origins "*"
 	      resource '*', :headers => :any, :methods => [:get, :post, :put, :options]
 	    end
-  end 
+  	end 
   end
 end
