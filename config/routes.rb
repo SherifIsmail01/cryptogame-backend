@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     get '/accounts' => 'accounts#index', as: 'accounts'
     get '/account/:id' => 'accounts#show', as: 'show_account'
 
-    put '/users/:id/accounts/buy' => 'accounts#buy', as: 'update_account_buy'
-    put '/users/:id/accounts/sell' => 'accounts#sell', as: 'update_account_sell'
-    put '/users/:id/accounts/convert' => 'accounts#convert', as: 'update_account_convert' 
+    put '/users/:id/buy' => 'accounts#buy', as: 'update_account_buy'
+    put '/users/:id/sell' => 'accounts#sell', as: 'update_account_sell'
+    put '/users/:id/convert' => 'accounts#convert', as: 'update_account_convert'
 end
