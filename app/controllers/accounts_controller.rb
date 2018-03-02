@@ -38,13 +38,13 @@ class AccountsController < ApplicationController
 			myAccountToUpdate = Account.find_by_user_id_and_currency_name(params[:id], currency_to_buy)
 			if 	myAccountToUpdate.update_attribute(:units_of_currency, myAccountToUpdate.units_of_currency + num_of_units.to_i)
 				user.update_attribute(:cash_balance, user.cash_balance - total_price_of_purchase.to_i)
-		    	render :index
+		    	# render :index
+		    	render :json => { :accounts => @accounts }
 		    else
 		    	puts 'error'
 		    end
 		else
-			flash[:notice] = "Insufficient funds"
-			render :index
+			render :json => { :errors => @accounts.errors.full_messages }
 		end
 	end
 
