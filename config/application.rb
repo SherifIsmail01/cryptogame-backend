@@ -27,5 +27,12 @@ module CryptoGame
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+  	config.middleware.insert_before 0, Rack::Cors do
+    	allow do
+	      origins "https://crypto-game-backend.herokuapp.com/"
+	      resource '*', :headers => :any, :methods => [:get, :post, :put, :options], :credentials => true
+	    end
+  end 
   end
 end
