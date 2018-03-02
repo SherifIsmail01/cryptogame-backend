@@ -91,8 +91,8 @@ Rails.application.configure do
 
   config.middleware.insert_before 0, Rack::Cors do
     allow do
-      origins 'https://crypto-game.herokuapp.com/'
-      resource 'https://crypto-game-backend.herokuapp.com/', :headers => :any, :methods => [:get, :post, :put, :options]
+      origins 'https://crypto-game-backend.herokuapp.com/'
+      resource '*', :headers => :any, :methods => [:get, :post, :put, :options]
     end
   end 
 end
