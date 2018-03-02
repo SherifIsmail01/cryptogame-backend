@@ -36,9 +36,6 @@ class UsersController < ApplicationController
 	end
 
 	def destroy
-		user_id = params[:id]
-		@user = User.find_by(id: user_id)
-		@user.destroy
 	end
 
 	private
