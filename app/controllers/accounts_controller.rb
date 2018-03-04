@@ -38,8 +38,7 @@ class AccountsController < ApplicationController
 			myAccountToUpdate = Account.find_by_user_id_and_currency_name(params[:id], currency_to_buy)
 			if 	myAccountToUpdate.update_attribute(:units_of_currency, myAccountToUpdate.units_of_currency + num_of_units.to_i)
 				user.update_attribute(:cash_balance, user.cash_balance - total_price_of_purchase.to_i)
-		    	# render :index
-		    	render :json => { :accounts => @accounts }
+		    	render :index 
 		    else
 		    	puts 'error'
 		    end
@@ -58,38 +57,45 @@ class AccountsController < ApplicationController
 		current_val_of_Etherium = params[:current_val_of_Etherium]
 		current_val_of_Litecoin = params[:current_val_of_Litecoin]
 		current_val_of_Bitcoin = params[:current_val_of_Bitcoin]
+		user_number_of_units_of_convert_from_currency = Account.find_by_user_id_and_currency_name(params[:id], params[:convert_from_currency]).units_of_currency
+		puts Account.find_by_user_id_and_currency_name(params[:id], params[:convert_from_currency]).units_of_currency
 
-		price_of_converted_from_currency = (num_of_units_of_converted_from_currency.to_i * params[convert_from_currency])
-		if price_of_converted_from_currency >= params[convert_to_currency]
-			if price_of_converted_from_currency / params[convert_to_currency] % 2 === 0
-				num_of_units_of_converted_to_currency = price_of_converted_from_currency.to_i / params[convert_to_currency]
-				myAccountToConvertFrom = Account.find_by_user_id_and_currency_name(params[:id], convert_from_currency)
-				myAccountToConvertTo = Account.find_by_user_id_and_currency_name(params[:id], convert_to_currency)
-				if 	myAccountToConvertFrom.update_attribute(:units_of_currency, myAccountToConvertFrom.units_of_currency - num_of_units_of_converted_from_currency.to_i)
-					myAccountToConvertTo.update_attribute(:units_of_currency, myAccountToConvertTo.units_of_currency + num_of_units_of_converted_to_currency.to_i)
-					puts "converted"
-					render :index
+		if num_of_units_of_converted_from_currency.to_i <= user_number_of_units_of_convert_from_currency
+			price_of_converted_from_currency = (num_of_units_of_converted_from_currency.to_i * params[convert_from_currency])
+			if price_of_converted_from_currency >= params[convert_to_currency]
+				if price_of_converted_from_currency / params[convert_to_currency] % 2 === 0
+					num_of_units_of_converted_to_currency = price_of_converted_from_currency.to_i / params[convert_to_currency]
+					myAccountToConvertFrom = Account.find_by_user_id_and_currency_name(params[:id], convert_from_currency)
+					myAccountToConvertTo = Account.find_by_user_id_and_currency_name(params[:id], convert_to_currency)
+					if 	myAccountToConvertFrom.update_attribute(:units_of_currency, myAccountToConvertFrom.units_of_currency - num_of_units_of_converted_from_currency.to_i)
+						myAccountToConvertTo.update_attribute(:units_of_currency, myAccountToConvertTo.units_of_currency + num_of_units_of_converted_to_currency.to_i)
+						puts "converted"
+						render :index, status: 200
+					else
+						puts "error"
+					end
 				else
-					puts "error"
+					division = price_of_converted_from_currency.to_i / params[convert_to_currency]
+					num_of_units_of_converted_to_currency = division.floor
+					remainder = (division - num_of_units_of_converted_to_currency) * params[convert_to_currency]
+					myAccountToConvertFrom = Account.find_by_user_id_and_currency_name(params[:id], convert_from_currency)
+					myAccountToConvertTo = Account.find_by_user_id_and_currency_name(params[:id], convert_to_currency)
+					if 	myAccountToConvertFrom.update_attribute(:units_of_currency, myAccountToConvertFrom.units_of_currency - num_of_units_of_converted_from_currency.to_i)
+						myAccountToConvertTo.update_attribute(:units_of_currency, myAccountToConvertTo.units_of_currency + num_of_units_of_converted_to_currency.to_i)
+						user.update_attribute(:cash_balance, user.cash_balance + remainder)
+						puts "converted"
+						render :index , status: 200
+					else
+						puts "error"
+					end
 				end
 			else
-				division = price_of_converted_from_currency.to_i / params[convert_to_currency]
-				num_of_units_of_converted_to_currency = division.floor
-				remainder = (division - num_of_units_of_converted_to_currency) * params[convert_to_currency]
-				myAccountToConvertFrom = Account.find_by_user_id_and_currency_name(params[:id], convert_from_currency)
-				myAccountToConvertTo = Account.find_by_user_id_and_currency_name(params[:id], convert_to_currency)
-				if 	myAccountToConvertFrom.update_attribute(:units_of_currency, myAccountToConvertFrom.units_of_currency - num_of_units_of_converted_from_currency.to_i)
-					myAccountToConvertTo.update_attribute(:units_of_currency, myAccountToConvertTo.units_of_currency + num_of_units_of_converted_to_currency.to_i)
-					user.update_attribute(:cash_balance, user.cash_balance + remainder)
-					puts "converted"
-					render :index
-				else
-					puts "error"
-				end
+				flash[:notice] = "Insufficient amount, please increase number of units or change currency"
+				render :index, status: 400
 			end
 		else
-			flash[:notice] = "Insufficient amount, please increase number of units or change currency"
-			render :index	
+			flash[:notice] = "Incorrect number of units"
+			render :index, status: 500
 		end
 	end
 
