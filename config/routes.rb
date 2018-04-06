@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  
     get '/users' => 'users#index', as: 'users'
     post '/users' => 'users#create', as: 'create_user'
 
@@ -13,4 +14,7 @@ Rails.application.routes.draw do
     put '/users/:id/buy' => 'accounts#buy', as: 'update_account_buy'
     put '/users/:id/sell' => 'accounts#sell', as: 'update_account_sell'
     put '/users/:id/convert' => 'accounts#convert', as: 'update_account_convert'
+
+    get '/transactions' => 'transactions#index', as: 'transaction'
+    post '/transactions' => 'transactions#create', as: 'new_transactions'
 end

@@ -60,7 +60,7 @@ class AccountsController < ApplicationController
 		user_number_of_units_of_convert_from_currency = Account.find_by_user_id_and_currency_name(params[:id], params[:convert_from_currency]).units_of_currency
 		puts Account.find_by_user_id_and_currency_name(params[:id], params[:convert_from_currency]).units_of_currency
 
-		if num_of_units_of_converted_from_currency.to_i <= user_number_of_units_of_convert_from_currency
+		if num_of_units_of_converted_from_currency.to_i <= user_number_of_units_of_convert_from_currency and convert_from_currency != convert_to_currency
 			price_of_converted_from_currency = (num_of_units_of_converted_from_currency.to_i * params[convert_from_currency])
 			if price_of_converted_from_currency >= params[convert_to_currency]
 				if price_of_converted_from_currency / params[convert_to_currency] % 2 === 0
