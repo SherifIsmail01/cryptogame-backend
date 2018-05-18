@@ -94,5 +94,6 @@ Rails.application.configure do
       origins '*'
       resource '*', :headers => :any, :methods => [:get, :post, :put, :delete, :options]
     end
-  end 
+  end
+  config.middleware.insert 0, Rack: :WWWhisper 
 end

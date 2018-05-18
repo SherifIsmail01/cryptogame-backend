@@ -32,7 +32,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'jwt'
 # gem 'chartkick'
 # gem 'devise_token_auth'
-
+gem 'rack-wwwhisper', '~> 1.0'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 gem 'rack-cors', :require => 'rack/cors'
