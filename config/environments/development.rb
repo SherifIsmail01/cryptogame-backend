@@ -52,11 +52,10 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  config.middleware.insert 0, Rack::Cors do
+  config.middleware.insert_before 0, Rack::Cors do
     allow do
       origins "*"
       resource '*', :headers => :any, :methods => [:get, :post, :put, :delete, :options]
     end
-  end
-  config.middleware.insert_before 0, Rack::WWWhisper 
+  end 
 end

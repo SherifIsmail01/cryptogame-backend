@@ -28,12 +28,11 @@ module CryptoGame
     # Don't generate system test files.
     config.generators.system_tests = nil
 
-  	config.middleware.insert 0, Rack::Cors do
+  	config.middleware.insert_before 0, Rack::Cors do
     	allow do
 	      origins "*"
 	      resource '*', :headers => :any, :methods => [:get, :post, :put, :delete, :options]
 	    end
-  	end
-    config.middleware.insert_before 0, Rack::WWWhisper 
+  	end 
   end
 end
