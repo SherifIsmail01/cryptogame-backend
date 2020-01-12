@@ -41,11 +41,14 @@ ActiveRecord::Schema.define(version: 20180305221500) do
     t.integer "cash_balance"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "account_id"
     t.string "email"
     t.string "password_digest"
+    t.index ["account_id"], name: "index_users_on_account_id"
   end
 
   add_foreign_key "accounts", "users"
   add_foreign_key "transactions", "accounts"
   add_foreign_key "transactions", "users"
+  add_foreign_key "users", "accounts"
 end
