@@ -23,7 +23,7 @@ COPY Gemfile Gemfile.lock ./
 RUN gem install bundler -v 2.4.22
 
 # WIPE OUT local files and force an isolated runtime vendor configuration
-RUN rm -rf .bundle vendor/bundle Gemfile.lock && \
+RUN rm -f Gemfile.lock && \
     bundle config set --local deployment 'false' && \
     bundle config set --local without '' && \
     bundle config set --local path 'vendor/bundle' && \
@@ -33,7 +33,7 @@ RUN rm -rf .bundle vendor/bundle Gemfile.lock && \
 COPY . .
 
 # WIPE OUT any old local bundle caches
-RUN rm -rf .bundle vendor/bundle tmp/cache
+RUN rm -rf tmp/cache
 
 EXPOSE 3000
 
