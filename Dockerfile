@@ -28,15 +28,8 @@ COPY Gemfile Gemfile.lock ./
 RUN gem install bundler -v 2.4.22
 
 # FORCE bundler to install ALL groups (including development/test) to get Rake
-RUN rm -f Gemfile.lock && \
-    bundle config set --local without '' && \
-    bundle config set --local development 'true' && \
-    bundle config set --local test 'true' && \
-    bundle install
-
-# FORCE bundler to accept the Linux environment platforms, then run install
-RUN bundle lock --add-platform x86_64-linux && \
-    bundle lock --add-platform aarch64-linux && \
+RUN rm -f .bundle vendor/bundle Gemfile.lock && \
+    bundle config set --global path '/usr/local/bundle' && \
     bundle install
 
 # Copy the rest of the project files
