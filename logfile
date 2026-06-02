@@ -1,0 +1,12 @@
+2026-06-02 02:20:29.289 EEST [92214] LOG:  starting PostgreSQL 14.23 (Homebrew) on x86_64-apple-darwin19.6.0, compiled by Apple clang version 12.0.0 (clang-1200.0.32.29), 64-bit
+2026-06-02 02:20:29.341 EEST [92214] LOG:  listening on IPv6 address "::1", port 5432
+2026-06-02 02:20:29.341 EEST [92214] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2026-06-02 02:20:29.345 EEST [92214] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2026-06-02 02:20:29.366 EEST [92215] LOG:  database system was shut down at 2026-06-02 02:20:03 EEST
+2026-06-02 02:20:29.386 EEST [92214] LOG:  database system is ready to accept connections
+2026-06-02 02:24:29.403 EEST [92214] LOG:  could not open file "postmaster.pid": No such file or directory
+2026-06-02 02:24:29.403 EEST [92214] LOG:  performing immediate shutdown because data directory lock file is invalid
+2026-06-02 02:24:29.404 EEST [92214] LOG:  received immediate shutdown request
+2026-06-02 02:24:29.404 EEST [92214] LOG:  could not open file "postmaster.pid": No such file or directory
+2026-06-02 02:24:29.405 EEST [92220] LOG:  could not open temporary statistics file "pg_stat/global.tmp": No such file or directory
+2026-06-02 02:24:29.413 EEST [92214] LOG:  database system is shut down
