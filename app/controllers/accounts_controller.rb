@@ -29,7 +29,7 @@ class AccountsController < ApplicationController
 		@accounts = user.accounts
 		num_of_units = params[:num_of_units]
 		currency_to_buy = params[:currency_to_buy]
-		current_val_of_Etherium = params[:current_val_of_Etherium]
+		current_val_of_Ethereum = params[:current_val_of_Ethereum]
 		current_val_of_Litecoin = params[:current_val_of_Litecoin]
 		current_val_of_Bitcoin = params[:current_val_of_Bitcoin]
 
@@ -54,7 +54,7 @@ class AccountsController < ApplicationController
 		convert_from_currency = params[:convert_from_currency]
 		num_of_units_of_converted_from_currency = params[:num_of_units_of_converted_from_currency]
 		convert_to_currency = params[:convert_to_currency]
-		current_val_of_Etherium = params[:current_val_of_Etherium]
+		current_val_of_Ethereum = params[:current_val_of_Ethereum]
 		current_val_of_Litecoin = params[:current_val_of_Litecoin]
 		current_val_of_Bitcoin = params[:current_val_of_Bitcoin]
 		user_number_of_units_of_convert_from_currency = Account.find_by_user_id_and_currency_name(params[:id], params[:convert_from_currency]).units_of_currency
@@ -106,7 +106,7 @@ class AccountsController < ApplicationController
 		sold_for = params[:sold_for]
 		num_of_units = params[:num_of_units]
 		currency_to_sell = params[:currency_to_sell]
-		current_val_of_Etherium = params[:current_val_of_Etherium]
+		current_val_of_Ethereum = params[:current_val_of_Ethereum]
 		current_val_of_Litecoin = params[:current_val_of_Litecoin]
 		current_val_of_Bitcoin = params[:current_val_of_Bitcoin]
 

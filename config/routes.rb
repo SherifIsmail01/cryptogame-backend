@@ -3,6 +3,15 @@ Rails.application.routes.draw do
     get '/users' => 'users#index', as: 'users'
     post '/users' => 'users#create', as: 'create_user'
 
+    namespace :api, defaults: { format: :json } do
+        get '/crypto_rates/historical_month' => 'crypto_rates#historical_month', as: 'crypto_rates_historical'
+
+        post 'login', to: 'sessions#create'
+        
+        # Add this matching get route alongside your existing graph routes:
+        get 'crypto_rates/spot/:coin_id', to: 'crypto_rates#spot_prices'
+    end
+
     get '/users/:id' => 'users#show', as: 'user'
     put '/users/:id' => 'users#update', as: 'update_user'
     delete '/users/:id' => 'users#destroy', as: 'delete_account'

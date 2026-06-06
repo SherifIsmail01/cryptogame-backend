@@ -4,22 +4,32 @@ class UsersController < ApplicationController
 	end
 
 	def create
-	    @user = User.new(user_params)
-	    @user.cash_balance = 50000
-	    if @user.save
-	    	user_id = @user.id
-	    	@first_account = Account.new({user_id: user_id, currency_name: 'Bitcoin', units_of_currency: 0})
-	    	@second_account = Account.new({user_id: user_id, currency_name: 'Litecoin', units_of_currency: 0})
-	    	@third_account = Account.new({user_id: user_id, currency_name: 'Etherium', units_of_currency: 0})
-	    	if @first_account.save and @second_account.save and @third_account.save
-		      	render :show, status: :created, location: @user
-		    else
-		    	render json: @first_account.errors, status: :unprocessable_entity
-		    end
-	    else
-	      	render json: @user.errors, status: :unprocessable_entity
-	    end
-	end
+		@user = User.new(user_params)
+		@user.cash_balance = 500000
+
+		# Wrap in a database transaction block
+		ActiveRecord::Base.transaction do
+		if @user.save
+			@first_account  = Account.new(user: @user, currency_name: 'Bitcoin', units_of_currency: 0)
+			@second_account = Account.new(user: @user, currency_name: 'Litecoin', units_of_currency: 0)
+			@third_account  = Account.new(user: @user, currency_name: 'Ethereum', units_of_currency: 0)
+
+			if @first_account.save! && @second_account.save! && @third_account.save!
+			# ✅ FIXED: Removed the 'return' keyword completely. 
+			# Rails will now commit the transaction cleanly!
+			render json: { id: @user.id, name: @user.name, cash_balance: @user.cash_balance }, status: :created
+			end
+		else
+			render json: @user.errors, status: :unprocessable_entity
+		end
+		end
+
+	rescue ActiveRecord::RecordInvalid => e
+		render json: { error: "Account initialization failed: #{e.message}" }, status: :unprocessable_entity
+    end
+
+
+
 
 	def show
 		@user = User.find_by_id(params[:id])		
@@ -40,6 +50,10 @@ class UsersController < ApplicationController
 
 	private
 	def user_params
-		params.permit(:name)
+		if params[:user].present? && params[:user][:password].present?
+			params.require(:user).permit(:name, :password)
+		else
+			params.permit(:name, :password)
+		end
 	end
 end
