@@ -1,10 +1,14 @@
 Rails.application.routes.draw do
-  
+    
+    post 'login', to: 'sessions#create', defaults: { format: :json }
+    
     get '/users' => 'users#index', as: 'users'
     post '/users' => 'users#create', as: 'create_user'
 
     namespace :api, defaults: { format: :json } do
         get '/crypto_rates/historical_month' => 'crypto_rates#historical_month', as: 'crypto_rates_historical'
+
+        get 'crypto_rates/global_volume', to: 'crypto_rates#global_volume'
 
         post 'login', to: 'sessions#create'
         

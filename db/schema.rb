@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2018_03_05_221500) do
+ActiveRecord::Schema[7.1].define(version: 2026_06_07_040004) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,9 +28,13 @@ ActiveRecord::Schema[7.1].define(version: 2018_03_05_221500) do
     t.bigint "account_id"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.string "type"
+    t.string "transaction_type"
     t.decimal "amount"
     t.integer "number_of_units"
+    t.string "coin_name"
+    t.float "units"
+    t.float "price_per_unit"
+    t.float "total_amount"
     t.index ["account_id"], name: "index_transactions_on_account_id"
     t.index ["user_id"], name: "index_transactions_on_user_id"
   end

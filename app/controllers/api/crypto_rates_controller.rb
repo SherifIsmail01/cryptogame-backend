@@ -49,4 +49,30 @@ class Api::CryptoRatesController < ApplicationController
     end 
     render json: response_data
   end
+
+  def global_volume
+    cache_key = "global_transaction_volume"
+    
+    response_data = Rails.cache.fetch(cache_key, expires_in: 1.minute) do
+      # Fetch all transaction history data records from the database
+      all_transactions = Transaction.all
+
+      # ✅ FIXED: Use Ruby's built-in grouping instead of relying on database SQL functions.
+      # This groups your items by the exact calendar day perfectly on both SQLite and PostgreSQL.
+      grouped_by_day = all_transactions.group_by { |t| t.created_at.to_date }
+
+      # Map the collection into Highcharts friendly [timestamp_ms, total_usd] arrays
+      grouped_by_day.map do |date, transactions|
+        timestamp_ms = date.to_time.to_i * 1000
+        total_usd = transactions.sum(&:total_amount).to_f.round(2)
+        
+        [timestamp_ms, total_usd]
+      end.sort # Keeps your timeline chart chronologically ordered from left to right
+    end
+
+    render json: response_data
+  end
+
+
+
 end
