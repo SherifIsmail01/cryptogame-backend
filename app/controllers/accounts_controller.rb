@@ -26,12 +26,23 @@ class AccountsController < ApplicationController
 	def buy
 		user_id = params[:id]
 		user = User.find_by_id(user_id)
+
 		@accounts = user.accounts
-		num_of_units = params[:num_of_units]
-		currency_to_buy = params[:currency_to_buy]
-		current_val_of_Ethereum = params[:current_val_of_Ethereum]
-		current_val_of_Litecoin = params[:current_val_of_Litecoin]
-		current_val_of_Bitcoin = params[:current_val_of_Bitcoin]
+		num_of_units = params[:num_of_units].to_f
+		currency_to_buy = params[:currency_to_buy].to_s
+
+		current_val_of_Ethereum = params[:Ethereum].to_f
+		current_val_of_Litecoin = params[:Litecoin].to_f
+		current_val_of_Bitcoin = params[:Bitcoin].to_f
+
+		 active_spot_price = case currency_to_buy.downcase
+                        when 'bitcoin'  then current_val_of_Bitcoin
+                        when 'litecoin' then current_val_of_Litecoin
+                        when 'ethereum' then current_val_of_Ethereum
+                        else 0.0
+                        end
+
+		 total_cost_price = num_of_units * active_spot_price
 
 		total_price_of_purchase = (num_of_units.to_i * params[currency_to_buy])
 		if 	user.cash_balance >= total_price_of_purchase
@@ -51,6 +62,7 @@ class AccountsController < ApplicationController
 		user_id = params[:id]
 		user = User.find_by_id(user_id)
 		@accounts = user.accounts
+		
 		convert_from_currency = params[:convert_from_currency]
 		num_of_units_of_converted_from_currency = params[:num_of_units_of_converted_from_currency]
 		convert_to_currency = params[:convert_to_currency]
@@ -102,13 +114,25 @@ class AccountsController < ApplicationController
 	def sell
 		user_id = params[:id]
 		user = User.find_by_id(user_id)
+
 		@accounts = user.accounts
 		sold_for = params[:sold_for]
-		num_of_units = params[:num_of_units]
-		currency_to_sell = params[:currency_to_sell]
-		current_val_of_Ethereum = params[:current_val_of_Ethereum]
-		current_val_of_Litecoin = params[:current_val_of_Litecoin]
-		current_val_of_Bitcoin = params[:current_val_of_Bitcoin]
+		num_of_units = params[:num_of_units].to_f
+
+		currency_to_sell = params[:currency_to_sell].to_s
+
+		price_eth = params[:Ethereum].to_f
+		price_ltc = params[:Litecoin].to_f
+		price_btc = params[:Bitcoin].to_f
+
+		 active_price = case currency_to_sell.downcase
+                        when 'bitcoin'  then price_btc
+                        when 'litecoin' then price_ltc
+                        when 'ethereum' then price_eth
+                        else 0.0
+                        end
+
+   		target_account = user.accounts.find_by(currency_name: currency_to_sell)
 
 		total_price_of_sale = (num_of_units.to_i * params[currency_to_sell])
 		myAccountToUpdate = Account.find_by_user_id_and_currency_name(params[:id], currency_to_sell) # get rid of hardcoded
