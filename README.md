@@ -5,8 +5,22 @@ Crypto game is a simple application that allow users to buy and sell cryptocurre
 ## Built by
 * [Sherif Ismail](https://github.com/SherifIsmail01)
 
+---
+title: Cryptogame Backend
+emoji: 🪙
+colorFrom: blue
+colorTo: indigo
+sdk: docker
+app_port: 7860
+pinned: false
+license: mit
+---
+
+# Cryptogame Rails Backend Engine
+This space compiles and runs the Rails multi-tenant API layer.
+
+
 ## Links
-* [heroku link](https://crypto-game.herokuapp.com/)
 * [Github Backend](https://github.com/SherifIsmail01/cryptogame-backend)
 * [User stories and wireframes](https://docs.google.com/document/d/1z_Pv6_-TKOrZ1qD126MwiESTh3_znMj01_wtUq0ystw/edit)
 
@@ -41,3 +55,4 @@ Crypto game is a simple application that allow users to buy and sell cryptocurre
 ## Installation
 * To install dependencies on the front end, run: `npm install`
 * To install dependencies on the back end, run: `bundle install`
+
