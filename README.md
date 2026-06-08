@@ -1,10 +1,3 @@
-# Crypto game
-
-Crypto game is a simple application that allow users to buy and sell cryptocurrencies with dummy accounts. It gives the ability to trade with different crypto currencies and compare prices over time. 
-
-## Built by
-* [Sherif Ismail](https://github.com/SherifIsmail01)
-
 ---
 title: Cryptogame Backend
 emoji: 🪙
@@ -18,6 +11,12 @@ license: mit
 
 # Cryptogame Rails Backend Engine
 This space compiles and runs the Rails multi-tenant API layer.
+# Crypto game
+
+Crypto game is a simple application that allow users to buy and sell cryptocurrencies with dummy accounts. It gives the ability to trade with different crypto currencies and compare prices over time. 
+
+## Built by
+* [Sherif Ismail](https://github.com/SherifIsmail01)
 
 
 ## Links
