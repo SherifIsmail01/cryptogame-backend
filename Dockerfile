@@ -23,8 +23,7 @@ COPY Gemfile Gemfile.lock ./
 RUN gem install bundler -v 2.4.22
 
 # WIPE OUT local files and force an isolated runtime vendor configuration
-RUN rm -f Gemfile.lock && \
-    bundle config set --local deployment 'false' && \
+RUN bundle config set --local deployment 'false' && \
     bundle config set --local without '' && \
     bundle config set --local path 'vendor/bundle' && \
     bundle install
@@ -35,7 +34,7 @@ COPY . .
 # WIPE OUT any old local bundle caches
 RUN rm -rf tmp/cache
 
-EXPOSE 3000
+EXPOSE 7860
 
 # Start the Rails server bound to all network interfaces
-CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
+CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0", "-p", "7860"]
